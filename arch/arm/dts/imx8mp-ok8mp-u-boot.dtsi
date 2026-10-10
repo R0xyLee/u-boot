@@ -1,0 +1,129 @@
+// SPDX-License-Identifier: GPL-2.0+
+
+#include "imx8mp-u-boot.dtsi"
+
+/ {
+	wdt-reboot {
+		compatible = "wdt-reboot";
+		wdt = <&wdog1>;
+		bootph-pre-ram;
+	};
+};
+
+&binman_imx_spl {
+	section {
+		ddr-1d-imem-fw {
+			filename = "ok8mp-lpddr4-1d-imem.bin";
+		};
+		ddr-1d-dmem-fw {
+			filename = "ok8mp-lpddr4-1d-dmem.bin";
+		};
+		ddr-2d-imem-fw {
+			filename = "ok8mp-lpddr4-2d-imem.bin";
+		};
+		ddr-2d-dmem-fw {
+			filename = "ok8mp-lpddr4-2d-dmem.bin";
+		};
+	};
+};
+
+&binman_imx_fit {
+	images {
+		uboot {
+			os = "u-boot";
+			entry = <CONFIG_TEXT_BASE>;
+		};
+
+		atf {
+			os = "arm-trusted-firmware";
+		};
+	};
+
+	configurations {
+		@config-SEQ {
+			firmware = "atf";
+			loadables = "uboot";
+		};
+	};
+};
+
+&pinctrl_i2c1 {
+	bootph-all;
+};
+
+&pinctrl_pmic {
+	bootph-all;
+};
+
+&i2c1 {
+	bootph-all;
+};
+
+&{/soc@0/bus@30800000/i2c@30a20000/pmic@25} {
+	bootph-all;
+};
+
+&{/soc@0/bus@30800000/i2c@30a20000/pmic@25/regulators} {
+	bootph-all;
+};
+
+&pinctrl_uart2 {
+	bootph-pre-ram;
+};
+
+&pinctrl_usdhc2_gpio {
+	bootph-pre-ram;
+};
+
+&pinctrl_usdhc2 {
+	bootph-pre-ram;
+};
+
+&pinctrl_usdhc3 {
+	bootph-pre-ram;
+};
+
+&pinctrl_wdog {
+	bootph-pre-ram;
+};
+
+&gpio1 {
+	bootph-pre-ram;
+};
+
+&gpio2 {
+	bootph-pre-ram;
+};
+
+&gpio3 {
+	bootph-pre-ram;
+};
+
+&gpio4 {
+	bootph-pre-ram;
+};
+
+&gpio5 {
+	bootph-pre-ram;
+};
+
+&uart2 {
+	bootph-pre-ram;
+};
+
+&usdhc2 {
+	bootph-pre-ram;
+};
+
+&usdhc3 {
+	bootph-pre-ram;
+};
+
+&wdog1 {
+	bootph-pre-ram;
+};
+
+&reg_usdhc2_vmmc {
+	bootph-pre-ram;
+	u-boot,off-on-delay-us = <20000>;
+};

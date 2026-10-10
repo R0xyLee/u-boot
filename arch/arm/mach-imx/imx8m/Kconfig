@@ -275,6 +275,20 @@ config TARGET_IMX8MP_ICORE_MX8MP
 	  * i.Core MX8M Plus needs to mount on top of EDIMM2.2 for
 	    creating complete i.Core MX8M Plus EDIMM2.2 Starter Kit.
 
+config TARGET_OK8MP
+	bool "Forlinx OK8MP-C V3.1 with 4 GiB LPDDR4"
+	select IMX8MP
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select ARCH_MISC_INIT
+	select SPL_CRYPTO if SPL
+	select REGMAP
+	select SYSCON
+	help
+	  Initial support for the Forlinx OK8MP-C V3.1 carrier and
+	  4 GiB Micron LPDDR4 module using the vendor static DDR timing.
+
 config TARGET_IMX8MP_EVK
 	bool "imx8mp LPDDR4 EVK board"
 	select IMX8MP
@@ -458,6 +472,7 @@ source "board/dhelectronics/dh_imx8mp/Kconfig"
 source "board/emcraft/imx8mp_navqp/Kconfig"
 source "board/engicam/imx8mm/Kconfig"
 source "board/engicam/imx8mp/Kconfig"
+source "board/forlinx/ok8mp/Kconfig"
 source "board/nxp/imx8mq_evk/Kconfig"
 source "board/nxp/imx8mm_evk/Kconfig"
 source "board/nxp/imx8mn_evk/Kconfig"

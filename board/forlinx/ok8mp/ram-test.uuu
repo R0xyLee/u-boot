@@ -1,0 +1,8 @@
+uuu_version 1.2.39
+
+# SPDX-License-Identifier: GPL-2.0+
+# Place this script beside flash.bin. Download to RAM, then check Fastboot.
+# No flash, erase or mmc write command is issued.
+SDPS: boot -f flash.bin
+FB: getvar version
+FB: done

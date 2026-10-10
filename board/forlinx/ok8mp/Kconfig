@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: GPL-2.0+
+
+if TARGET_OK8MP
+
+config SYS_BOARD
+	default "ok8mp"
+
+config SYS_VENDOR
+	default "forlinx"
+
+config SYS_CONFIG_NAME
+	default "ok8mp"
+
+endif
