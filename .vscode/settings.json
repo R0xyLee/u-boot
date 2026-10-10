@@ -79,7 +79,23 @@
         "arch/x86": true,
         "arch/xtensa": true,
 
-        // ARM platforms other than Rockchip and i.MX.
+	// Temporarily hide Rockchip platform sources, boards and configurations.
+	"arch/arm/mach-rockchip": true,
+	"arch/arm/include/asm/arch-rockchip": true,
+	"arch/arm/include/asm/arch-rk*": true,
+	"arch/arm/include/asm/arch-rv*": true,
+	"arch/arm/include/asm/arch-px30": true,
+	"arch/arm/dts/rockchip*": true,
+	"arch/arm/dts/rk*": true,
+	"arch/arm/dts/rv11*": true,
+	"arch/arm/dts/px30*": true,
+	"board/rockchip": true,
+	"configs/*rockchip*": true,
+	"configs/*rk*": true,
+	"configs/*rv11*": true,
+	"configs/*px30*": true,
+
+	// Other ARM platforms outside i.MX.
         "arch/arm/mach-airoha": true,
         "arch/arm/mach-apple": true,
         "arch/arm/mach-aspeed": true,
@@ -130,7 +146,86 @@
         "arch/arm/mach-zynqmp": true,
         "arch/arm/mach-zynqmp-r5": true,
 
-        // Platform headers; retain Rockchip, i.MX and common ARM headers.
+	// Other ARM device trees; retain i.MX/NXP and shared includes.
+	// Keep board aliases such as ev-imx*, o4-imx* and mba6*, plus common DTS headers.
+	"arch/arm/dts/ac5*": true,
+	"arch/arm/dts/am*": true,
+	"arch/arm/dts/an7581*": true,
+	"arch/arm/dts/apq*": true,
+	"arch/arm/dts/armada*": true,
+	"arch/arm/dts/arm_fvp*": true,
+	"arch/arm/dts/ast*": true,
+	"arch/arm/dts/at91*": true,
+	"arch/arm/dts/avnet*": true,
+	"arch/arm/dts/ax3005*": true,
+	"arch/arm/dts/axp*": true,
+	"arch/arm/dts/bcm*": true,
+	"arch/arm/dts/beacon*": true,
+	"arch/arm/dts/bitmain*": true,
+	"arch/arm/dts/bubblegum*": true,
+	"arch/arm/dts/ca-*": true,
+	"arch/arm/dts/cat875*": true,
+	"arch/arm/dts/cn913*": true,
+	"arch/arm/dts/condor*": true,
+	"arch/arm/dts/corstone*": true,
+	"arch/arm/dts/da850*": true,
+	"arch/arm/dts/dra*": true,
+	"arch/arm/dts/ebisu*": true,
+	"arch/arm/dts/en75*": true,
+	"arch/arm/dts/exynos*": true,
+	"arch/arm/dts/fvp*": true,
+	"arch/arm/dts/hi*": true,
+	"arch/arm/dts/hpe*": true,
+	"arch/arm/dts/ipq*": true,
+	"arch/arm/dts/juno*": true,
+	"arch/arm/dts/k3-*": true,
+	"arch/arm/dts/keystone*": true,
+	"arch/arm/dts/kirkwood*": true,
+	"arch/arm/dts/lemans*": true,
+	"arch/arm/dts/logicpd*": true,
+	"arch/arm/dts/meson*": true,
+	"arch/arm/dts/mt*": true,
+	"arch/arm/dts/mvebu*": true,
+	"arch/arm/dts/ns*": true,
+	"arch/arm/dts/nuvoton*": true,
+	"arch/arm/dts/octeontx*": true,
+	"arch/arm/dts/omap*": true,
+	"arch/arm/dts/phytium*": true,
+	"arch/arm/dts/poplar*": true,
+	"arch/arm/dts/pxa*": true,
+	"arch/arm/dts/qcom*": true,
+	"arch/arm/dts/qcs*": true,
+	"arch/arm/dts/qemu*": true,
+	"arch/arm/dts/r7*": true,
+	"arch/arm/dts/r8*": true,
+	"arch/arm/dts/r9*": true,
+	"arch/arm/dts/rtsm*": true,
+	"arch/arm/dts/rz*": true,
+	"arch/arm/dts/s5*": true,
+	"arch/arm/dts/s700*": true,
+	"arch/arm/dts/s900*": true,
+	"arch/arm/dts/sam*": true,
+	"arch/arm/dts/sc5*": true,
+	"arch/arm/dts/sdm*": true,
+	"arch/arm/dts/socfpga*": true,
+	"arch/arm/dts/ste-*": true,
+	"arch/arm/dts/stih*": true,
+	"arch/arm/dts/stm32*": true,
+	"arch/arm/dts/sun*": true,
+	"arch/arm/dts/synquacer*": true,
+	"arch/arm/dts/tegra*": true,
+	"arch/arm/dts/thunderx*": true,
+	"arch/arm/dts/total*": true,
+	"arch/arm/dts/twl4030_omap3*": true,
+	"arch/arm/dts/uniphier*": true,
+	"arch/arm/dts/usb_a9263*": true,
+	"arch/arm/dts/versal*": true,
+	"arch/arm/dts/vexpress*": true,
+	"arch/arm/dts/xenguest*": true,
+	"arch/arm/dts/xilinx*": true,
+	"arch/arm/dts/zynq*": true,
+
+	// Platform headers; retain i.MX and common ARM headers.
         "arch/arm/include/asm/arch-airoha": true,
         "arch/arm/include/asm/arch-am33xx": true,
         "arch/arm/include/asm/arch-an7581": true,
@@ -173,6 +268,15 @@
         "arch/arm/include/asm/arch-tegra20": true,
         "arch/arm/include/asm/arch-tegra210": true,
         "arch/arm/include/asm/arch-tegra30": true,
+	"arch/arm/include/asm/iproc-common": true,
+	"arch/arm/include/asm/kona-common": true,
+	"arch/arm/include/asm/ti-common": true,
+	"arch/arm/include/asm/xen": true,
+	"arch/arm/include/asm/xen.h": true,
+	"arch/arm/include/asm/davinci_rtc.h": true,
+	"arch/arm/include/asm/ehci-omap.h": true,
+	"arch/arm/include/asm/emif.h": true,
+	"arch/arm/include/asm/omap_*.h": true,
 
 
         // Keep ARMv8; exclude 32-bit CPUs, SoCs, headers and library code.
@@ -235,8 +339,9 @@
         "arch/arm/lib/vectors.S": true,
         "arch/arm/lib/vectors_m.S": true,
 
-        // Other ARMv8 platforms outside Rockchip and i.MX.
+	// Other ARMv8 platforms outside i.MX.
         "arch/arm/cpu/armv8/bcmns3": true,
+	"arch/arm/cpu/armv8/fel_utils.S": true,
         "arch/arm/cpu/armv8/fsl-layerscape": true,
         "arch/arm/cpu/armv8/hisilicon": true,
         "arch/arm/cpu/armv8/xen": true,
@@ -246,7 +351,7 @@
         "arch/arm/include/asm/arch-imx9": true,
         "board/nxp/imx9*": true,
 
-        // Keep Rockchip ARM64 EVB/Sheep/Toybrick/generic and NXP i.MX8 official configs.
+	// Keep NXP i.MX8 official configs; Rockchip is temporarily excluded above.
         // Exclude other config name prefixes; retain referenced config fragments.
         "configs/1*": true,
         "configs/3*": true,
@@ -381,7 +486,7 @@
         "configs/y*": true,
         "configs/z*": true,
 
-        // Other board vendors; retain Rockchip, NXP i.MX and shared code.
+	// Other board vendors; retain NXP i.MX, Forlinx and shared code.
         "board/BuR": true,
         "board/BuS": true,
         "board/CZ.NIC": true,
@@ -660,7 +765,7 @@
         "board/nxp/t4rdb": true,
         "board/nxp/vf610twr": true,
 
-        // 32-bit Rockchip boards; retain ARM64 boards.
+	// Existing 32-bit Rockchip exclusions; the temporary rule above covers all boards.
         "board/rockchip/evb_rk3036": true,
         "board/rockchip/evb_rk3128": true,
         "board/rockchip/evb_rk3229": true,
@@ -699,7 +804,23 @@
         "arch/x86": true,
         "arch/xtensa": true,
 
-        // ARM platforms other than Rockchip and i.MX.
+	// Temporarily hide Rockchip platform sources, boards and configurations.
+	"arch/arm/mach-rockchip": true,
+	"arch/arm/include/asm/arch-rockchip": true,
+	"arch/arm/include/asm/arch-rk*": true,
+	"arch/arm/include/asm/arch-rv*": true,
+	"arch/arm/include/asm/arch-px30": true,
+	"arch/arm/dts/rockchip*": true,
+	"arch/arm/dts/rk*": true,
+	"arch/arm/dts/rv11*": true,
+	"arch/arm/dts/px30*": true,
+	"board/rockchip": true,
+	"configs/*rockchip*": true,
+	"configs/*rk*": true,
+	"configs/*rv11*": true,
+	"configs/*px30*": true,
+
+	// Other ARM platforms outside i.MX.
         "arch/arm/mach-airoha": true,
         "arch/arm/mach-apple": true,
         "arch/arm/mach-aspeed": true,
@@ -750,7 +871,86 @@
         "arch/arm/mach-zynqmp": true,
         "arch/arm/mach-zynqmp-r5": true,
 
-        // Platform headers; retain Rockchip, i.MX and common ARM headers.
+	// Other ARM device trees; retain i.MX/NXP and shared includes.
+	// Keep board aliases such as ev-imx*, o4-imx* and mba6*, plus common DTS headers.
+	"arch/arm/dts/ac5*": true,
+	"arch/arm/dts/am*": true,
+	"arch/arm/dts/an7581*": true,
+	"arch/arm/dts/apq*": true,
+	"arch/arm/dts/armada*": true,
+	"arch/arm/dts/arm_fvp*": true,
+	"arch/arm/dts/ast*": true,
+	"arch/arm/dts/at91*": true,
+	"arch/arm/dts/avnet*": true,
+	"arch/arm/dts/ax3005*": true,
+	"arch/arm/dts/axp*": true,
+	"arch/arm/dts/bcm*": true,
+	"arch/arm/dts/beacon*": true,
+	"arch/arm/dts/bitmain*": true,
+	"arch/arm/dts/bubblegum*": true,
+	"arch/arm/dts/ca-*": true,
+	"arch/arm/dts/cat875*": true,
+	"arch/arm/dts/cn913*": true,
+	"arch/arm/dts/condor*": true,
+	"arch/arm/dts/corstone*": true,
+	"arch/arm/dts/da850*": true,
+	"arch/arm/dts/dra*": true,
+	"arch/arm/dts/ebisu*": true,
+	"arch/arm/dts/en75*": true,
+	"arch/arm/dts/exynos*": true,
+	"arch/arm/dts/fvp*": true,
+	"arch/arm/dts/hi*": true,
+	"arch/arm/dts/hpe*": true,
+	"arch/arm/dts/ipq*": true,
+	"arch/arm/dts/juno*": true,
+	"arch/arm/dts/k3-*": true,
+	"arch/arm/dts/keystone*": true,
+	"arch/arm/dts/kirkwood*": true,
+	"arch/arm/dts/lemans*": true,
+	"arch/arm/dts/logicpd*": true,
+	"arch/arm/dts/meson*": true,
+	"arch/arm/dts/mt*": true,
+	"arch/arm/dts/mvebu*": true,
+	"arch/arm/dts/ns*": true,
+	"arch/arm/dts/nuvoton*": true,
+	"arch/arm/dts/octeontx*": true,
+	"arch/arm/dts/omap*": true,
+	"arch/arm/dts/phytium*": true,
+	"arch/arm/dts/poplar*": true,
+	"arch/arm/dts/pxa*": true,
+	"arch/arm/dts/qcom*": true,
+	"arch/arm/dts/qcs*": true,
+	"arch/arm/dts/qemu*": true,
+	"arch/arm/dts/r7*": true,
+	"arch/arm/dts/r8*": true,
+	"arch/arm/dts/r9*": true,
+	"arch/arm/dts/rtsm*": true,
+	"arch/arm/dts/rz*": true,
+	"arch/arm/dts/s5*": true,
+	"arch/arm/dts/s700*": true,
+	"arch/arm/dts/s900*": true,
+	"arch/arm/dts/sam*": true,
+	"arch/arm/dts/sc5*": true,
+	"arch/arm/dts/sdm*": true,
+	"arch/arm/dts/socfpga*": true,
+	"arch/arm/dts/ste-*": true,
+	"arch/arm/dts/stih*": true,
+	"arch/arm/dts/stm32*": true,
+	"arch/arm/dts/sun*": true,
+	"arch/arm/dts/synquacer*": true,
+	"arch/arm/dts/tegra*": true,
+	"arch/arm/dts/thunderx*": true,
+	"arch/arm/dts/total*": true,
+	"arch/arm/dts/twl4030_omap3*": true,
+	"arch/arm/dts/uniphier*": true,
+	"arch/arm/dts/usb_a9263*": true,
+	"arch/arm/dts/versal*": true,
+	"arch/arm/dts/vexpress*": true,
+	"arch/arm/dts/xenguest*": true,
+	"arch/arm/dts/xilinx*": true,
+	"arch/arm/dts/zynq*": true,
+
+	// Platform headers; retain i.MX and common ARM headers.
         "arch/arm/include/asm/arch-airoha": true,
         "arch/arm/include/asm/arch-am33xx": true,
         "arch/arm/include/asm/arch-an7581": true,
@@ -793,6 +993,15 @@
         "arch/arm/include/asm/arch-tegra20": true,
         "arch/arm/include/asm/arch-tegra210": true,
         "arch/arm/include/asm/arch-tegra30": true,
+	"arch/arm/include/asm/iproc-common": true,
+	"arch/arm/include/asm/kona-common": true,
+	"arch/arm/include/asm/ti-common": true,
+	"arch/arm/include/asm/xen": true,
+	"arch/arm/include/asm/xen.h": true,
+	"arch/arm/include/asm/davinci_rtc.h": true,
+	"arch/arm/include/asm/ehci-omap.h": true,
+	"arch/arm/include/asm/emif.h": true,
+	"arch/arm/include/asm/omap_*.h": true,
 
 
         // Keep ARMv8; exclude 32-bit CPUs, SoCs, headers and library code.
@@ -855,8 +1064,9 @@
         "arch/arm/lib/vectors.S": true,
         "arch/arm/lib/vectors_m.S": true,
 
-        // Other ARMv8 platforms outside Rockchip and i.MX.
+	// Other ARMv8 platforms outside i.MX.
         "arch/arm/cpu/armv8/bcmns3": true,
+	"arch/arm/cpu/armv8/fel_utils.S": true,
         "arch/arm/cpu/armv8/fsl-layerscape": true,
         "arch/arm/cpu/armv8/hisilicon": true,
         "arch/arm/cpu/armv8/xen": true,
@@ -866,7 +1076,7 @@
         "arch/arm/include/asm/arch-imx9": true,
         "board/nxp/imx9*": true,
 
-        // Keep Rockchip ARM64 EVB/Sheep/Toybrick/generic and NXP i.MX8 official configs.
+	// Keep NXP i.MX8 official configs; Rockchip is temporarily excluded above.
         // Exclude other config name prefixes; retain referenced config fragments.
         "configs/1*": true,
         "configs/3*": true,
@@ -1001,7 +1211,7 @@
         "configs/y*": true,
         "configs/z*": true,
 
-        // Other board vendors; retain Rockchip, NXP i.MX and shared code.
+	// Other board vendors; retain NXP i.MX, Forlinx and shared code.
         "board/BuR": true,
         "board/BuS": true,
         "board/CZ.NIC": true,
@@ -1280,7 +1490,7 @@
         "board/nxp/t4rdb": true,
         "board/nxp/vf610twr": true,
 
-        // 32-bit Rockchip boards; retain ARM64 boards.
+	// Existing 32-bit Rockchip exclusions; the temporary rule above covers all boards.
         "board/rockchip/evb_rk3036": true,
         "board/rockchip/evb_rk3128": true,
         "board/rockchip/evb_rk3229": true,
