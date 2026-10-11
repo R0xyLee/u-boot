@@ -13,10 +13,10 @@ import subprocess
 
 build = Path(__file__).resolve().parents[3]
 workspace = build.parent
-firmware = workspace / 'firmware/imx8mp/lpddr4/202006'
+firmware = workspace / 'firmware/firmware-imx-8.10/firmware/ddr/synopsys'
 bl31 = workspace / 'atf/build/imx8mp/release/bl31.bin'
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--output', type=Path, default=workspace / 'tmp/ok8mp-build/native-image',
+parser.add_argument('--output', type=Path, default=workspace / 'output/boot',
 	help='directory for the final image and packaging metadata')
 out = parser.parse_args().output.resolve()
 out.mkdir(parents=True, exist_ok=True)
@@ -56,7 +56,8 @@ magic_offset = symbols['_binman_sym_magic'] - loader
 assert struct.unpack_from('<Q', spl, magic_offset)[0] == 0
 payload = bytearray(spl)
 payload.extend(bytes((-len(payload)) % 4))
-inputs = [build / 'spl/u-boot-spl.bin', build / 'u-boot-nodtb.bin', dtb, bl31]
+components = [build / 'spl/u-boot-spl.bin', build / 'u-boot.bin', build / 'u-boot-nodtb.bin', dtb, bl31]
+inputs = list(components)
 checksum_file = firmware / 'SHA256SUMS'
 try:
 	checksums = {name: digest for digest, name in
@@ -149,6 +150,13 @@ payload_offset = entry - ivt_self
 assert flash[payload_offset:payload_offset + len(payload)] == payload
 assert flash[fit_offset:fit_offset + 4] == bytes.fromhex('d00dfeed')
 (out / 'flash.bin').write_bytes(flash)
+for path in components:
+	shutil.copyfile(path, out / path.name)
+# Describe all exported boot images, including the raw component binaries.
+artifacts = [out / p.name for p in components] + [out / name for name in
+	('flash.bin', 'u-boot-spl-ddr.bin', 'u-boot-spl-mkimage.bin', 'u-boot.itb')]
+(out / 'SHA256SUMS').write_text(''.join(
+	f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}\n' for p in artifacts))
 manifest = {'method': 'native mkimage; DDR loader uses checked _end + FDT fallback',
 	'fit_offset': fit_offset, 'inputs': {str(p.relative_to(workspace)): hashlib.sha256(p.read_bytes()).hexdigest()
 	for p in inputs}, 'flash_sha256': hashlib.sha256(flash).hexdigest(), 'flash_size': len(flash)}
