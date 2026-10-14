@@ -202,7 +202,8 @@ static int _vprintf(struct printf_info *info, const char *fmt, va_list va)
 	char ch;
 	char *p;
 	unsigned long num;
-	char buf[12];
+	/* Decimal unsigned long, optional sign and terminating NUL. */
+	char buf[3 * sizeof(unsigned long) + 2];
 	unsigned long div;
 
 	while ((ch = *(fmt++))) {
