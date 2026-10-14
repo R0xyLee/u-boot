@@ -71,6 +71,8 @@ static int fit_image_setup_verify(struct image_sign_info *info,
 	const char *algo_name;
 	const char *padding_name;
 
+	debug("FIT: signature setup fit=%p node=%d key=%p keynode=%d\n",
+	      fit, noffset, key_blob, required_keynode);
 	if (fdt_totalsize(fit) > CONFIG_VAL(FIT_SIGNATURE_MAX_SIZE)) {
 		*err_msgp = "Total size too large";
 		return 1;
@@ -89,8 +91,11 @@ static int fit_image_setup_verify(struct image_sign_info *info,
 	info->fit = fit;
 	info->node_offset = noffset;
 	info->name = algo_name;
+	debug("FIT: looking up %s, padding %s\n", algo_name, padding_name);
 	info->checksum = image_get_checksum_algo(algo_name);
+	debug("FIT: checksum algorithm=%p\n", info->checksum);
 	info->crypto = image_get_crypto_algo(algo_name);
+	debug("FIT: crypto algorithm=%p\n", info->crypto);
 	info->padding = image_get_padding_algo(padding_name);
 	info->fdt_blob = key_blob;
 	info->required_keynode = required_keynode;
@@ -610,6 +615,7 @@ static int fit_config_verify_key(const void *fit, int conf_noffset,
 	int verified = 0;
 	int ret;
 
+	debug("FIT: checking config=%d with keynode=%d\n", conf_noffset, key_offset);
 	/* Process all hash subnodes of the component conf node */
 	fdt_for_each_subnode(noffset, fit, conf_noffset) {
 		const char *name = fit_get_name(fit, noffset, NULL);
@@ -746,6 +752,8 @@ int fit_config_verify_with_key_blob(const void *fit, int conf_noffset,
 
 int fit_config_verify(const void *fit, int conf_noffset)
 {
+	debug("\nFIT: config verify fit=%p conf=%d key=%p\n",
+	      fit, conf_noffset, gd_fdt_blob());
 	return fit_config_verify_with_key_blob(fit, conf_noffset,
 					       gd_fdt_blob());
 }

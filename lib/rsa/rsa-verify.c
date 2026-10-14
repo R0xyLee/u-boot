@@ -355,13 +355,16 @@ static int rsa_verify_key(struct image_sign_info *info,
 	hash_len = checksum->checksum_len;
 
 #if !defined(USE_HOSTCC)
+	debug("RSA: probing modular exponentiation driver\n");
 	ret = uclass_get_device(UCLASS_MOD_EXP, 0, &mod_exp_dev);
 	if (ret) {
 		printf("RSA: Can't find Modular Exp implementation\n");
 		return -EINVAL;
 	}
 
+	debug("RSA: modular exponentiation with %s\n", mod_exp_dev->name);
 	ret = rsa_mod_exp(mod_exp_dev, sig, sig_len, prop, buf);
+	debug("RSA: modular exponentiation returned %d\n", ret);
 #else
 	ret = rsa_mod_exp_sw(sig, sig_len, prop, buf);
 #endif
@@ -587,8 +590,11 @@ int rsa_verify(struct image_sign_info *info,
 	}
 
 	/* Calculate checksum with checksum-algorithm */
+	debug("RSA: calculating %s over %d regions\n",
+	      info->checksum->name, region_count);
 	ret = info->checksum->calculate(info->checksum->name,
 					region, region_count, hash);
+	debug("RSA: checksum returned %d\n", ret);
 	if (ret < 0) {
 		debug("%s: Error in checksum calculation\n", __func__);
 		return -EINVAL;
