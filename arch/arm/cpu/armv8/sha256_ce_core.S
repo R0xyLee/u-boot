@@ -14,9 +14,7 @@
 	.text
 	.arch		armv8-a+crypto
 
-	dga		.req	q20
 	dgav		.req	v20
-	dgb		.req	q21
 	dgbv		.req	v21
 
 	t0		.req	v22
@@ -84,8 +82,8 @@ ENTRY(sha256_armv8_ce_process)
 	ld1		{ v8.4s-v11.4s}, [x8], #64
 	ld1		{v12.4s-v15.4s}, [x8]
 
-	/* load state */
-	ldp		dga, dgb, [x0]
+	/* The uint32_t state may only be 4-byte aligned with the MMU off. */
+	ld1		{dgav.4s, dgbv.4s}, [x0]
 
 	/* load input */
 0:	ld1		{v16.4s-v19.4s}, [x1], #64
@@ -129,6 +127,6 @@ ENTRY(sha256_armv8_ce_process)
 	cbnz		w2, 0b
 
 	/* store new state */
-3:	stp		dga, dgb, [x0]
+3:	st1		{dgav.4s, dgbv.4s}, [x0]
 	ret
 ENDPROC(sha256_armv8_ce_process)
