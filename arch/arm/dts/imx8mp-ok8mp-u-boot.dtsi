@@ -28,6 +28,8 @@
 };
 
 &binman_imx_fit {
+	offset = <CONFIG_OK8MP_FIT_OFFSET>;
+
 	images {
 		uboot {
 			os = "u-boot";

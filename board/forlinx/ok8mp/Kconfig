@@ -11,4 +11,11 @@ config SYS_VENDOR
 config SYS_CONFIG_NAME
 	default "ok8mp"
 
+config OK8MP_FIT_OFFSET
+	hex "FIT offset relative to the ROM image"
+	default 0x58000
+	help
+	  Shared by the ROMAPI loader and the Binman image layout. The SPL
+	  uses ROMAPI for storage access and does not need the MMC stack.
+
 endif

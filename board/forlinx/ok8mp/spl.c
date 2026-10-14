@@ -14,6 +14,7 @@
 #include <asm/mach-imx/boot_mode.h>
 #include <asm/global_data.h>
 #include <linux/kernel.h>
+#include <linux/libfdt.h>
 #include <power/pca9450.h>
 #include <power/pmic.h>
 
@@ -22,6 +23,12 @@ DECLARE_GLOBAL_DATA_PTR;
 int spl_board_boot_device(enum boot_device boot_dev_spl)
 {
 	return BOOT_DEVICE_BOOTROM;
+}
+
+ulong spl_romapi_get_uboot_base(u32 image_offset, u32 rom_bt_dev)
+{
+	/* Keep ROMAPI independent of the disabled native MMC loader. */
+	return (ulong)image_offset + CONFIG_OK8MP_FIT_OFFSET;
 }
 
 int power_init_board(void)
@@ -58,6 +65,16 @@ int power_init_board(void)
 
 void spl_board_init(void)
 {
+	const char *required;
+	int node, len;
+
+	/* An unprovisioned SPL must not silently accept unsigned FITs. */
+	node = fdt_path_offset(gd->fdt_blob, "/signature/key-boot");
+	required = fdt_getprop(gd->fdt_blob, node, "required", &len);
+	if (!IS_ENABLED(CONFIG_SPL_FIT_SIGNATURE) || !required ||
+	    len != sizeof("conf") || memcmp(required, "conf", sizeof("conf")))
+		panic("SPL: required FIT verification key is missing\n");
+
 	arch_misc_init();
 
 	/* Set the GIC to 500 MHz only after the PMIC supplies 0.95 V. */
